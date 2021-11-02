@@ -1,0 +1,18 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* font-family: 'Caveat', cursive; */
+
+}
+
+.home {
+  font-size: 30px;
+}
+
+h1 {
+  font-size: 40px;
+  padding: 0px;
+  margin: 20px 0 0 0;
+}
