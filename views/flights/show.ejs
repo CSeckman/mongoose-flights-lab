@@ -1,0 +1,71 @@
+<%- include('../partials/html-head')  %> 
+<link rel="stylesheet" href="/stylesheets/style.css">
+<%- include('../partials/nav')  %>
+<main>
+  <h1><%= title %></h1>
+  <tbody>
+    <tr>
+      <td>Airline:</td>
+      <td><%= flight.airline %></td>
+    </tr>
+    </br>
+    <tr>
+      <td>Airport:</td>
+      <td><%= flight.airport %></td>
+    </tr>
+    </br>
+    <tr>
+      <td>Flight #:</td>
+      <td><%= flight.flightNo %></td>
+    </tr>
+    </br>
+    <tr>
+      <td>Departure Date/Time:</td>
+      <td><%= flight.departs %></td>
+    </tr>
+    </br>
+    <tr>
+      <td>Destinations:</td>
+      <td><%- flight.destinations.map(destination => 
+        `<li>${destination.airport}</li>`
+      ).join('') %></td>
+    </tr>
+    <form id="add-aiport-to-destination" action="/flights/<%= flight._id %>/destinations" method="POST">
+      <select name="destinationId">
+        <%- destinations.map(destination => 
+          `<option value="${destination._id}">${destination.airport}</option>`
+        ).join('') %>
+      </select>
+      <button type="submit">Add Destination</button>
+    </form>
+  </tbody>
+  </br>
+  </br>
+  <p>Add A Ticket:</p>
+  <form action='/flights/<%= flight._id %>/tickets' method='POST'>
+    <label for="content-textarea">Seat #:</label>
+    <input type="text" name="seat" required pattern="[A-F][1-9]\d?" placeholder="Must be ‘A1’ thru ‘F99’" >
+    <label for="content-textarea">Price: $</label>
+    <input type="number" name="price">
+    <button type="submit">Add Ticket</button>
+  </form>
+  <% if (flight.tickets.length) { %>
+    <table id="tickets">
+      <thead>
+        <tr>
+          <th>Seat</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% flight.tickets.forEach((ticket) => { %>
+          <tr>
+            <td><%= ticket.seat %></td>
+            <td>$<%= ticket.price %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+  <% } %> 
+  </main>
+  <%- include('../partials/footer')  %> 
